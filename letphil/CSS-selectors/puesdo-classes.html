@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="device-width, initial-scale=1.0" />
+        <title>Pseudo Classes</title>
+        <!--Pseudo Classes apply styles when elements are in a certain state -->
+        <!--hover changes styles when the user hovers over an element-->
+        <!--focus changes styles when element is focused, useful for form accesibility-->
+        <!--nth-child selector: styles specific elements within a list -->
+    </head>
+    <style>
+        button:hover{ background-color: blueviolet;
+        }
+        input:focus {
+            border: 3px solid orange;
+        }
+        li:nth-child(odd) {
+            background-color: lightblue;
+        }
+    </style>
+    <body>
+        <button>hover me</button>
+        <input type="text" placeholder="click here">
+        <ul>
+            <li>item 1</li>
+            <li>item 2</li>
+            <li>item 3</li>
+        </ul>
+    </body>
+</html>

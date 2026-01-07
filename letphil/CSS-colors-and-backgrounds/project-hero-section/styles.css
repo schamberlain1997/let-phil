@@ -1,0 +1,27 @@
+/* 
+https://images.pexels.com/photos/35454864/pexels-photo-35454864.jpeg?_gl=1*8t1aph*_ga*MTk1MzM4ODg3LjE3Njc2NTk2NzI.*_ga_8JE65Q40S6*czE3Njc2NTk2NzIkbzEkZzEkdDE3Njc2NjEzMjUkajM5JGwwJGgw
+*/
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.hero{
+    height: 100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color:white;
+    background-image:url("https://images.pexels.com/photos/35454864/pexels-photo-35454864.jpeg?_gl=1*8t1aph*_ga*MTk1MzM4ODg3LjE3Njc2NTk2NzI.*_ga_8JE65Q40S6*czE3Njc2NTk2NzIkbzEkZzEkdDE3Njc2NjEzMjUkajM5JGwwJGgw");
+    background-size:cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.hero h1{
+    font-size: 40px;
+    text-transform:uppercase;
+    text-shadow: 2px 2px 5px black;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox</title>
+    <style>
+        .flex-container {
+            display: flex;
+            background-color: lightgray;
+            padding: 10px;
+            flex-direction:row;
+            justify-content: flex-start;
+            height:200px;
+            align-items: baseline;
+            flex-wrap: wrap
+        }
+        
+             /* Flex-direction options
+              -Row(default)
+              -row-reverse
+              -column
+              -column-reverse */
+
+              /* justify-content options 
+              space-between
+              flex-start
+              flex-end
+              center
+              space-around
+              space-evenly*/
+
+              /* align-items options
+              center
+              flex-start
+              flex-end
+              stretch
+              baseline
+               */
+
+             /* flex-wrap options
+             no-wrap(default)
+             wrap
+             wrap-reverse*/
+
+        .item{
+            background: steelblue;
+            color:white;
+            padding: 20px;
+            margin: 5px
+        }
+/*         
+        .item:nth-child(2){
+            align-self:flex-end
+        } */
+        /* align-self: Overides alignment for a single item */
+    </style>
+</head>
+<body>
+    <div class="flex-container">
+     <div class="item">Item 1</div>
+     <div class="item">Item 2</div>
+     <div class="item">Item 3</div>
+    </div>
+</body>
+</html>

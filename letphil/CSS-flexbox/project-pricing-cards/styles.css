@@ -1,0 +1,44 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.pricing{
+    display: flex;
+    gap: 20px;
+}
+
+.card{
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    background-color: lightblue;
+    border-radius: 10px;
+}
+
+.card:nth-child(1):before{
+    content: "$3 ";
+}
+
+.card:nth-child(2):before{
+    content: "$5 "
+}
+
+.card:nth-child(3):before{
+    content: "$10 "
+}
+
+/* Best Practices
+-Use flexbox for 1 directional layouts
+-Use justify-content for horizontal alignment
+-Use align-items for vertical alignment
+-Use flex-grow/shrink for dynamic sizing
+-Use flex-wrap for responsive layouts
+
+Key Takeaways
+-Flexbox simplifies layout design
+-Flex-direction controls row vs column
+*/

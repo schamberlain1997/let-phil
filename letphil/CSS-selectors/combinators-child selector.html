@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="device-width, initial-scale=1.0" />
+        <title>Combinators</title>
+        <!--Combinators target elements based on their relationships with other elements-->
+        <!--Child Selector:(Parent>Child) Targets direct children of an element  -->
+        <style>
+            div > p {
+                color: chartreuse;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <p>Direct Child</p>
+            <section>
+                <p>Not a direct child</p>
+            </section>
+        </div>
+    </body>
+</html>
