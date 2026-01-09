@@ -22,5 +22,5 @@
 
 // for (let key in person) {
 //     console.log('key=', key);
-//     console.log('person[${key}]:val=', person[key]);
+//     console.log(`person[${key}]:val=`, person[key]);
 // }
