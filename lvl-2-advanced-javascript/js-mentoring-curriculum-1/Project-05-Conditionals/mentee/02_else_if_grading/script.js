@@ -13,7 +13,7 @@ const result = document.getElementById("result");
 // - If it's not a valid number or not within 0–100, show a friendly error message and stop.
 gradeBtn.addEventListener("click", () => {
   const input = Number(scoreInput.value);
-  if (Number.isNaN(input) || input <= 0 || input >= 100) {
+  if (Number.isNaN(input) || input < 0 || input > 100) {
     result.textContent = "Please enter a valid input";
     return;
   }
