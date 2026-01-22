@@ -1,10 +1,12 @@
-## Basic Pig Dice Game in Console Log
+## Pig Dice Game - Console Log Edition
+## How to Play:
 
-## Game Rules
+## Roll the Dice to accumulate points for each round. Keep rolling to build up your score!
 
-## Roll Die to accumulate your score, but be careful, if you roll a 1, you don't get any points for the round.
+## Beware! If you roll a 1, you lose all points accumulated in that round. The round ends, and you start fresh next time.
 
-## Use Bank Score button to end your round, your score will be saved for next round.
+## Use the Bank Score Button to safely store your points at any time and end your round. Your score will carry over to the next round.
 
-## First one to 100 Wins! Have Fun
+## The first player to reach 100 points wins!
 
+## Good luck and have fun!

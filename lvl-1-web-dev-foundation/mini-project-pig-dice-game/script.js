@@ -48,7 +48,7 @@ const resetButton2 = document.getElementById("reset-button2")
 function rollDie2() {
     let dice_number2 = Math.floor(Math.random() * 6) + 1;
     if (dice_number2 === 1) {
-        alert("You rolled a 1, Click Reset score, Switch Players, no points for you this round!")
+        alert("You rolled a 1, Click Reset score, Switch Players, no points for you this round!"), console.log("Player 2's Turn")
     } else {
       roundScore2 += dice_number2;
     }
