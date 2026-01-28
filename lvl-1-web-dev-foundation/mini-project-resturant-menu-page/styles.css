@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+.flex-container {
+    display:flex;
+
+}
+body{
+    background-color: goldenrod;
+    font-family: "Playfair Display";
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color:black;
+    border-style: groove;
+    border-width: 5px;
+    border-color: rgb(255, 232, 130);
+    font-size: 60px;
+    font-weight: bold;
+    color: goldenrod;
+
+}
+.component {
+
+    display: flex;
+    font-size: 40px;
+    font-weight: bold;
+    border-bottom: solid rgb(255, 232, 130);
+    position: relative;
+    left: 20px;
+    width: 100vw;
+
+}
+
+ul {
+  padding-bottom: 5px;
+  font-size: 25px;
+}
+
+
+ 
+li{
+    display: flex;
+    padding: 8px;
+}
+
+.item {
+    display:flex;
+    justify-content: left;
+    position: relative;
+    width: 100vw;
+    left: 5px;
+}
+
+.price {
+    display: flex;
+    justify-content: right;
+    position: relative; 
+    width:100vw;
+    right: 10px;
+}
+
+.contact-head {
+    font-weight: bold;
+    font-size: 20;
+    text-decoration: underline;
+}
+footer {
+    border: solid rgb(255, 232, 130);
+   padding: 0; 
+   margin: 5px;
+   position:relative;
+   text-align: center;
+}
