@@ -59,7 +59,7 @@ document.getElementById("calcBtn").addEventListener("click", function(){
     if (shippingCost === 0){
         document.getElementById("message").textContent = "Free Shipping Unlocked"
     } else {
-        document.getElementById("message").textContent = `Add $${(150-totalAfterDiscount).toFixed(2)} to unlock free shipping(only applies to standard purchases without a coupon)`
+        document.getElementById("message").textContent = `Add $${(150-totalAfterDiscount).toFixed(2)} to unlock free shipping(this value only applies to standard purchases without a coupon). Orders above $150 after discounts ship free`
     }
 
 })
