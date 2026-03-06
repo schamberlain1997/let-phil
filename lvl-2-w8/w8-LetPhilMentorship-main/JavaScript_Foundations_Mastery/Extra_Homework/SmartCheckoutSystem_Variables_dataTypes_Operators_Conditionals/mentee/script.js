@@ -1,70 +1,71 @@
-// ✅ SMART CHECKOUT SYSTEM
-// Goal: Calculate discount + shipping + final total based on inputs.
-// Logic rules must use ONLY: variables, data types, operators, conditionals.
-// We ARE allowed to use DOM + event listeners because this is the Realistic UI version.
+document.getElementById("cartTotal")
+document.getElementById("membership")
+document.getElementById("coupon")
+document.getElementById("calcBtn")
+document.getElementById("message")
+document.getElementById("subtotalText")
+document.getElementById("discountText")
+document.getElementById("shippingText")
+document.getElementById("finalTotalText")
 
-// Step 1: Get references to the DOM elements we need using document.getElementById()
-// Store references for:
-// - cart total input        → id="cartTotal"
-// - membership dropdown     → id="membership"
-// - coupon dropdown         → id="coupon"
-// - calculate button        → id="calcBtn"
-// - message paragraph       → id="message"
-// - subtotal display        → id="subtotalText"
-// - discount display        → id="discountText"
-// - shipping display        → id="shippingText"
-// - final total display     → id="finalTotalText"
+document.getElementById("calcBtn").addEventListener("click", function(){
+    const cartTotal = Number(document.getElementById("cartTotal").value);
+    const membership = document.getElementById("membership").value;
+    const coupon = document.getElementById("coupon").value;
+    let hasCoupon = Boolean
+    if (coupon === "yes"){
+        hasCoupon = true
+    }
+    else{hasCoupon = false};
 
-// Step 2: Add a click event listener to the Calculate button
-// When the button is clicked, run the checkout calculation function
+    if (cartTotal === "" || cartTotal <= 0){
+        document.getElementById("message").textContent = "Warning: Please enter a valid cart total.";
+        return;
+    }
 
-// Step 3: Inside the click function, read the user inputs
-// - cartTotal should become a NUMBER (not a string)
-// - membership will be a STRING
-// - coupon value will be a STRING ("yes" or "no")
-// Then convert coupon into a BOOLEAN:
-//    hasCoupon = true if coupon === "yes", otherwise false
+    let subtotal = cartTotal;
+    let discountAmount;
+    let shippingCost;
+    let totalAfterDiscount;
+    let finalTotal;
 
-// Step 4: Validation check using a conditional
-// If cartTotal is empty OR cartTotal <= 0:
-// - set message text to a warning
-// - STOP the function early (return)
+    if (membership === "premium"){
+        discountAmount = .15 * subtotal;
+    } else if (membership === "vip"){
+        discountAmount = .25 * subtotal
+    } else{
+        discountAmount = 0 
+    };
 
-// Step 5: Create checkout calculation variables
-// - subtotal
-// - discountAmount
-// - shippingCost
-// - totalAfterDiscount
-// - finalTotal
+    if (hasCoupon === true){
+        discountAmount += .10 * subtotal
+    };
 
-// Step 6: Determine membership discount using conditionals
-// Rules:
-// - If membership is "premium" → 15% off subtotal
-// - Else if membership is "vip" → 25% off subtotal
-// - Else (standard) → 0% discount
+    totalAfterDiscount = subtotal - discountAmount;
 
-// Step 7: Apply coupon using conditionals
-// If hasCoupon is true:
-// - add EXTRA 10% discount of subtotal
+    if(totalAfterDiscount >= 150){
+        shippingCost = 0
+    } else {
+        shippingCost = 9.99
+    };
 
-// Step 8: Calculate the total AFTER discount (before shipping)
-// totalAfterDiscount = subtotal - discountAmount
+    finalTotal = totalAfterDiscount + shippingCost;
 
-// Step 9: Determine shipping using conditionals
-// Rules:
-// - If totalAfterDiscount >= 150 → shippingCost = 0 (free shipping)
-// - Else → shippingCost = 9.99
+    document.getElementById("subtotalText").textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById("discountText").textContent = `$${discountAmount.toFixed(2)}`;
+    document.getElementById("shippingText").textContent = `$${shippingCost.toFixed(2)}`;
+    document.getElementById("finalTotalText").textContent = `$${finalTotal.toFixed(2)}`;
 
-// Step 10: Calculate final total using operators
-// finalTotal = totalAfterDiscount + shippingCost
+    if (shippingCost === 0){
+        document.getElementById("message").textContent = "Free Shipping Unlocked"
+    } else {
+        document.getElementById("message").textContent = `Add $${(150-totalAfterDiscount).toFixed(2)} to unlock free shipping(only applies to standard purchases without a coupon)`
+    }
 
-// Step 11: Update the UI (the receipt values) using textContent
-// - subtotalText shows subtotal as money
-// - discountText shows discountAmount as money
-// - shippingText shows shippingCost as money
-// - finalTotalText shows finalTotal as money
+})
 
-// Step 12: Update the message text using conditionals
-// If shippingCost is 0 → show "Free shipping unlocked"
-// Else → show "Add $X more to unlock free shipping"
-// (You can calculate X = 150 - totalAfterDiscount)
+
+
+
+
+
