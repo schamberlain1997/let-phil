@@ -86,7 +86,7 @@ console.log(greet("Maya"))
 //
 // STEP 10: console.log subtract with a few tests.
 //
-subtract = (a,b) => {
+const subtract = (a,b) => {
     return a - b
 }
 console.log(`5-3=${subtract(5,3)}`)
@@ -115,7 +115,7 @@ console.log(`91-42=${subtract(91,42)}`)
 // (x, y) => x + y
 //
 
-doMath = (numberA, numberB, operation) => {
+const doMath = (numberA, numberB, operation) => {
     return operation(numberA, numberB)
 }
 
@@ -141,9 +141,10 @@ console.log(`9*2=${doMath(9, 2, (numberA, numberB)=>numberA * numberB)}`)
 //          addTax(100, 16)
 //          addTax(59.99, 8)
 //
-addTax = (price, taxRatePercent)=>{
-    taxRatePercent * .01;
-    return `$${(price += taxRatePercent).toFixed(2)}`;
+const addTax = (price, taxRatePercent)=>{
+    const taxRate = taxRatePercent * .01;
+    const finalPrice = price + (price * taxRate)
+    return `$${(finalPrice).toFixed(2)}`;
 }
 
 console.log(addTax(100, 16))
