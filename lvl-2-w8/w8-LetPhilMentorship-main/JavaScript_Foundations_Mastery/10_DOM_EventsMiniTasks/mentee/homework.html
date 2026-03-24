@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DOM + Events Homework –</title>
+    <link rel="stylesheet" href="homework.css" />
+  </head>
+  <body>
+    <!-- STEP 1 — Create the main page container -->
+    <!-- Add a <main> element with a class of "page" -->
+      <main class="page">
+    <!-- STEP 2 — Create the main card section -->
+    <!-- Inside <main>, add a <section> -->
+    <!-- Give it a class of "card" and an id of "eventCard" -->
+        <section id="card" id="eventCard">
+    <!-- STEP 3 — Add the card title -->
+    <!-- Add an <h1> element -->
+    <!-- id: "cardTitle" -->
+    <!-- Text: "DOM + Events" -->
+          <h1 id="cardTitle">Dom + Events</h1>
+
+    <!-- STEP 4 — Add the card description -->
+    <!-- Add a <p> element -->
+    <!-- id: "cardDescription" -->
+    <!-- class: "description" -->
+    <!-- Text should explain reacting to clicks and typing -->
+            <p id="cardDescription" class="description">Reacting to clicks and typing</p>
+
+    <!-- STEP 5 — Create the button container -->
+    <!-- Add a <div> with class "button-row" -->
+          
+    <!-- STEP 6 — Add the change title button -->
+    <!-- Add a <button> -->
+    <!-- id: "changeTitleBtn" -->
+    <!-- class: "btn primary" -->
+    <!-- Text: "Change Title" -->
+
+     
+    <!-- STEP 7 — Add the toggle highlight button -->
+    <!-- Add another <button> -->
+    <!-- id: "toggleHighlightBtn" -->
+    <!-- class: "btn ghost" -->
+    <!-- Text: "Toggle Highlight" -->
+          <div class="button-row">
+              <button id="changeTitleBtn" class="btm primary">Change Title</button>
+              <button id="toggleHighlightBtn" class="btn ghost">Toggle Highlight</button>
+          </div>
+    <!-- STEP 8 — Create the counter section -->
+    <!-- Add a <div> with class "counter-section" -->
+    <!-- Inside it, add: -->
+    <!-- a heading -->
+    <!-- a paragraph showing the current count -->
+    <!-- a <span> with id="counterValue" starting at 0 -->
+
+    <!-- STEP 9 — Add the increment button -->
+    <!-- Add a <button> -->
+    <!-- id: "incrementBtn" -->
+    <!-- class: "btn small" -->
+    <!-- Text: "+1" -->
+
+          <div class="counter-section">
+            <h1>Counter Section</h1>
+            <p>Current Count: <span id="counterValue">0</span></p>
+            <button id="incrementBtn" class="btn small">+1</button>
+          </div>
+
+
+    <!-- STEP 10 — Create the live preview section -->
+    <!-- Add a <div> with class "live-preview-section" -->
+
+    <!-- STEP 11 — Add the preview input -->
+    <!-- Add a <label> linked to previewInput -->
+    <!-- Add an <input> -->
+    <!-- id: "previewInput" -->
+    <!-- type: "text" -->
+
+    <!-- STEP 12 — Add the preview output text -->
+    <!-- Add a <p> element -->
+    <!-- Inside it, add a <span> -->
+    <!-- span id: "previewText" -->
+    <!-- Default text: "Nothing typed yet." -->
+
+    <!-- STEP 13 — Add a hint paragraph -->
+    <!-- Add a <p> element -->
+    <!-- class: "hint" -->
+    <!-- Mention script.js and testing interactions -->
+          <div class="live-preview-section">
+            <label for="previewInput">Input Text should appear below</label>
+              <input id="previewInput" type="text" placeholder="input text here">
+              <p><span id="previewText">Nothing typed yet</span></p>
+              <p class="hint">Open your script.js and start coding to see the interactions</p>
+          </div>
+    <!-- STEP 14 — Link JavaScript -->
+    <!-- Add a <script> tag at the bottom of the body -->
+    <!-- src="homework.js" -->
+        </section>
+      </main>
+      <script src="homework.js"></script>
+  </body>
+</html>
