@@ -58,7 +58,7 @@ changeTitleBtn.addEventListener("click", () => {
 //           This should add/remove the highlight effect each time you click.
 
 toggleHighlightBtn.addEventListener("click", () => {
-    cardTitle.classList.toggle("event-card-highlight")
+    eventCard.classList.toggle("event-card-highlight")
 })
 
 // ==============================================
