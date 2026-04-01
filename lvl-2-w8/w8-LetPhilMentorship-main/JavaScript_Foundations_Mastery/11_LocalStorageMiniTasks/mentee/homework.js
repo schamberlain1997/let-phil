@@ -45,7 +45,6 @@ saveQuoteBtn.addEventListener("click", ()=>{
     savedQuote != "" ?
     quoteDisplay.textContent = savedQuote :
     alert("Please enter a quote before saving.");
-    
 });
 
 

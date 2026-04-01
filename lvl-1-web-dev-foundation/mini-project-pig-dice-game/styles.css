@@ -1,0 +1,42 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    background-color: beige;
+    grid-template-areas:
+     "card-one card-two"
+     "game-rules game-rules"  
+}
+
+.game-rules {
+  background: rgba(41, 174, 27, 0.96);
+  border-radius: 1.75rem;
+  padding: 2.5rem 2.25rem;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(129, 140, 248, 0.4);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(56, 189, 248, 0.7);
+  text-align: center;
+  justify-content: center;
+  grid-area: game-rules;
+}
+
+.card-one {
+    text-align: center;
+    background-color: aqua;
+    border-radius: 1.75rem;
+    padding: 2.5rem 2.25rem;
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(129, 140, 248, 0.4);
+
+}
+
+.card-two {
+    text-align: center;
+    background-color: aquamarine;
+    border-radius: 1.75rem;
+    padding: 2.5rem 2.25rem;
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(129, 140, 248, 0.4);
+
+}
