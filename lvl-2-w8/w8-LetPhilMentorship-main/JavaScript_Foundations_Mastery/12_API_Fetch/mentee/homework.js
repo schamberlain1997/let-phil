@@ -107,7 +107,7 @@ searchCountryBtn.addEventListener("click", () => {
         const countryData = data[0];
         countryNameDisplay.textContent = `Country: ${countryData.name.common}`;
         countryCapitalDisplay.textContent = `Capital: ${countryData.capital}`;
-        countryRegionDisplay.textContent = `Region: ${countryData.region}`;
+        countryRegionDisplay.textContent = `Region: ${countryData.region[0]}`;
         countryPopulationDisplay.textContent = `Population ${countryData.population}`;
         countryStatusMessage.textContent = "Country information loaded successfully."      
     })
