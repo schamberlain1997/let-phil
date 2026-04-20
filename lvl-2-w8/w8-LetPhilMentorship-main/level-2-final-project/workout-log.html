@@ -12,7 +12,7 @@
             <div class="logo">Fitness<span>Tracker</span></div>
             <ul class="nav-links">
                 <li><a href="index.html">Search</a></li>
-                <li><a href="log.html" class="active">Log</a></li>
+                <li><a href="workout-log.html" class="active">Log</a></li>
             </ul>
         </div>
     </header>
@@ -20,7 +20,6 @@
     <div class="container">
         <div class="log-card">
             <h2>Add Workout</h2>
-            <!-- preventDefault keeps the page from refreshing on click -->
             <form class="log-form-grid" onsubmit="event.preventDefault();">
                 <input type="text" id="exerciseInput" placeholder="Exercise">
                 <input type="number" id="weightInput" placeholder="Weight">
@@ -43,12 +42,11 @@
                     </tr>
                 </thead>
                 <tbody id="logTableBody">
-                    <!-- JS will inject rows here -->
+
                 </tbody>
             </table>
         </div>
 
-        <!-- Clear All Button -->
         <div style="margin-top: 20px; text-align: right;">
             <button id="clear-all-btn" class="btn-delete" style="padding: 10px 20px;">Clear All Logs</button>
         </div>

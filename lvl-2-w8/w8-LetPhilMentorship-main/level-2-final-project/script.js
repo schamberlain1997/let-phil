@@ -85,3 +85,5 @@ document.querySelectorAll(".muscle-btn").forEach(button => {
         searchExercises("", muscle);
     });
 });
+
+
