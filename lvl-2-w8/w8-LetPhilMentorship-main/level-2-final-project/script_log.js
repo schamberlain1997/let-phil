@@ -76,3 +76,33 @@ function renderWorkouts() {
         </tr>
     `).join("");
 }
+
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const contactData = {
+        name: document.getElementById('contact-name').value,
+        email: document.getElementById('contact-email').value,
+        message: document.getElementById('contact-message').value,
+        timestamp: new Date().toLocaleString()
+    };
+    const existingMessages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+
+    existingMessages.push(contactData);
+
+    localStorage.setItem('contactMessages', JSON.stringify(existingMessages));
+
+    const submitBtn = e.target.querySelector('button');
+    const originalText = submitBtn.innerText;
+    
+    submitBtn.innerText = "Message Saved!";
+    submitBtn.style.backgroundColor = "#27ae60"
+
+    setTimeout(() => {
+        submitBtn.innerText = originalText;
+        submitBtn.style.backgroundColor = "";
+        e.target.reset();
+    }, 2000);
+
+    console.log("Contact saved to LocalStorage:", contactData);
+});

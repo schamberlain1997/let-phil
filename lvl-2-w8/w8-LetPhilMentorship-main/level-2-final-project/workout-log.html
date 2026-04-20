@@ -42,13 +42,22 @@
                     </tr>
                 </thead>
                 <tbody id="logTableBody">
-
-                </tbody>
+                    </tbody>
             </table>
         </div>
 
         <div style="margin-top: 20px; text-align: right;">
             <button id="clear-all-btn" class="btn-delete" style="padding: 10px 20px;">Clear All Logs</button>
+        </div>
+
+        <div class="log-card" style="margin-top: 40px;">
+            <h2>Contact Us</h2>
+            <form id="contact-form" style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="text" id="contact-name" placeholder="Your Name" required>
+                <input type="email" id="contact-email" placeholder="Your Email" required>
+                <textarea id="contact-message" placeholder="How can we help you?" rows="4" style="padding: 12px; border-radius: 8px; background: #2a3447; border: 1px solid #3d4b63; color: white;"></textarea>
+                <button type="submit" class="btn-primary" style="width: fit-content; padding: 10px 30px;">Send Message</button>
+            </form>
         </div>
     </div>
 

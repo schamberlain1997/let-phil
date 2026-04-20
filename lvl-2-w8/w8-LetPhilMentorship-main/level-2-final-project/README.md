@@ -74,7 +74,7 @@ These projects integrate **DOM manipulation, local storage, navigation, API usag
 ✅ Log workouts (date, type, duration, notes)  
 ✅ Save and retrieve workouts from Local Storage  
 ✅ Fetch exercises from an API ([WGER Workout API](https://wger.de/en/software/api))  
-✅ Filter workouts by type (Cardio, Strength, etc.)  
+✅ Filter wo rkouts by type (Cardio, Strength, etc.)  
 ✅ Responsive layout with tabbed navigation
 
 ### 8. E-Commerce Product Showcase
