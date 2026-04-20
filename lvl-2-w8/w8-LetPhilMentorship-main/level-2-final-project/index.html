@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+    <nav class="nav-bar">
+        <div class="logo">Fitness<span>Tracker</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Exercises</a></li>
+            <li><a href="workout-log.html">Workout Log</a></li>
+        </ul>
+    </nav>
+</header>
+    <h3>Find Your Next Exercise</h3>
+    <h3>Search by name or use the filters below to target specific muscle groups.</h3>
+    <section>
+        <div class="search-container">
+    <input type="text" id="exerciseInput" placeholder="Search exercises (e.g. Barbell Row)...">
+    <button id="exerciseBtn">Search All Exercises</button>
+    </div>
+    <div id="muscle-filters">
+    <div class="filter-group">
+        <h4>Upper Body</h4>
+        <button class="muscle-btn" data-muscle="chest">Chest</button>
+        <button class="muscle-btn" data-muscle="lats">Lats</button>
+        <button class="muscle-btn" data-muscle="middle back">Middle Back</button>
+        <button class="muscle-btn" data-muscle="lower back">Lower Back</button>
+        <button class="muscle-btn" data-muscle="shoulders">Shoulders</button>
+        <button class="muscle-btn" data-muscle="traps">Traps</button>
+    </div>
+
+    <div class="filter-group">
+        <h4>Arms</h4>
+        <button class="muscle-btn" data-muscle="biceps">Biceps</button>
+        <button class="muscle-btn" data-muscle="triceps">Triceps</button>
+        <button class="muscle-btn" data-muscle="forearms">Forearms</button>
+    </div>
+
+    <div class="filter-group">
+        <h4>Lower Body & Core</h4>
+        <button class="muscle-btn" data-muscle="quadriceps">Quads</button>
+        <button class="muscle-btn" data-muscle="hamstrings">Hamstrings</button>
+        <button class="muscle-btn" data-muscle="glutes">Glutes</button>
+        <button class="muscle-btn" data-muscle="calves">Calves</button>
+        <button class="muscle-btn" data-muscle="abdominals">Abs</button>
+    </div>
+</div>
+        <div id="exerciseResults"></div> 
+    </section>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>

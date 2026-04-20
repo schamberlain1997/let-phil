@@ -1,0 +1,199 @@
+
+:root {
+    --bg-dark: #0f172a;       /* Deep Navy */
+    --card-bg: #1e293b;       /* Slate Blue */
+    --mint: #10b981;          /* Primary Accent */
+    --mint-glow: #34d399;     /* Hover Accent */
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --danger: #ef4444;
+}
+
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 10;
+    padding: 25;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h2, h3, h4 {
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+.main-header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo span { color: var(--mint); }
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--mint);
+}
+
+.nav-links a.active {
+    border-bottom: 2px solid var(--mint);
+    padding-bottom: 5px;
+}
+
+.btn-primary {
+    background-color: var(--mint);
+    color: var(--bg-dark);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--mint-glow);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+input {
+    background-color: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: var(--text-main);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--mint);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+
+.search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+.muscle-btn {
+    background-color: var(--card-bg);
+    color: var(--mint-glow);
+    border: 2px solid var(--mint-glow);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.muscle-btn:hover {
+    background-color: var(--mint-glow);
+    color: var(--bg-dark);
+}
+
+/* --- 6. EXERCISE CARDS & WORKOUT LOGS --- */
+.exercise-card, .log-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+/* Specific to Workout Log Grid */
+.log-form-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+/* Table Styling */
+.table-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-bg);
+}
+
+th {
+    background-color: rgba(0,0,0,0.2);
+    color: var(--mint);
+    padding: 15px;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+}
+
+tr:hover { background: rgba(255,255,255,0.02); }
+
+.btn-delete {
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid var(--danger);
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background: var(--danger);
+    color: white;
+}

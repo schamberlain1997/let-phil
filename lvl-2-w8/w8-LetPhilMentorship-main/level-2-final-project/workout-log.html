@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Log</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-bar">
+            <div class="logo">Fitness<span>Tracker</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Search</a></li>
+                <li><a href="log.html" class="active">Log</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="log-card">
+            <h2>Add Workout</h2>
+            <!-- preventDefault keeps the page from refreshing on click -->
+            <form class="log-form-grid" onsubmit="event.preventDefault();">
+                <input type="text" id="exerciseInput" placeholder="Exercise">
+                <input type="number" id="weightInput" placeholder="Weight">
+                <input type="number" id="repsInput" placeholder="Reps">
+                <input type="number" id="setsInput" placeholder="Sets">
+                <button id="add-workout-btn" class="btn-primary">Add</button>
+            </form>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Exercise</th>
+                        <th>Weight</th>
+                        <th>Reps</th>
+                        <th>Sets</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="logTableBody">
+                    <!-- JS will inject rows here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Clear All Button -->
+        <div style="margin-top: 20px; text-align: right;">
+            <button id="clear-all-btn" class="btn-delete" style="padding: 10px 20px;">Clear All Logs</button>
+        </div>
+    </div>
+
+    <script src="script_log.js"></script>
+</body>
+</html>

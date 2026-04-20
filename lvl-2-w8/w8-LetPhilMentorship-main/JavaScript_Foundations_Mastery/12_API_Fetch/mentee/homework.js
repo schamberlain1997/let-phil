@@ -94,7 +94,8 @@ searchCountryBtn.addEventListener("click", () => {
     if (countryName === ""){
         countryStatusMessage.textContent="Please type a country name.";
         return;
-    }
+    };
+    countryStatusMessage.textContent = "Loading Country Data"
     const url = "https://restcountries.com/v3.1/name/" + encodeURIComponent(countryName) + "?fields=name,capital,region,population";
     fetch(url)
     .then((response) => {
@@ -102,12 +103,12 @@ searchCountryBtn.addEventListener("click", () => {
             throw new Error("Country not Found")
         }
         return response.json();
-    })
+    })    
     .then((data) => {
         const countryData = data[0];
         countryNameDisplay.textContent = `Country: ${countryData.name.common}`;
-        countryCapitalDisplay.textContent = `Capital: ${countryData.capital}`;
-        countryRegionDisplay.textContent = `Region: ${countryData.region[0]}`;
+        countryCapitalDisplay.textContent = `Capital: ${countryData.capital[0]}`;
+        countryRegionDisplay.textContent = `Region: ${countryData.region}`;
         countryPopulationDisplay.textContent = `Population ${countryData.population}`;
         countryStatusMessage.textContent = "Country information loaded successfully."      
     })

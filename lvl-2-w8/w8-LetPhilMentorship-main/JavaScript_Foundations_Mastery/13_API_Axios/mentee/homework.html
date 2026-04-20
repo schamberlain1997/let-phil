@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>API Homework – Simple Country Info</title>
+    <title>Axios Homework – Country Info</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="homework.css" />
   </head>
   <body>
@@ -16,14 +17,14 @@
 
     <!-- STEP 3 — Add the main title -->
     <!-- Add an <h1> element -->
-    <!-- Text: "Simple Country Info Viewer" -->
-        <h1>Simple Country Info Viewer</h1>
+    <!-- Text: "Country Info Viewer (Axios)" -->
+        <h1>Country Info Viewer</h1>
 
     <!-- STEP 4 — Add the subtitle -->
     <!-- Add a <p> element -->
     <!-- class: "subtitle" -->
-    <!-- Explain that data will be fetched from an API -->
-          <p class="subtitle"></p>
+    <!-- Mention Axios and async/await -->
+        <p class="subtitle"></p>
 
     <!-- STEP 5 — Create the input + button row -->
     <!-- Add a <div> with class "field-row" -->
@@ -45,6 +46,7 @@
     <!-- class: "btn primary" -->
     <!-- Text: "Search Country" -->
 
+    
         <div class="field-row">
           <label for="countryInput">Country Name</label>
             <input 
@@ -53,6 +55,7 @@
               placeholder="Example: Guam, New Zealand, Japan, Brazil"/>
             <button id="searchCountryBtn" class="btn-primary">Search Country</button>
         </div>
+
 
     <!-- STEP 9 — Create the info display block -->
     <!-- Add a <div> with class "info-block" -->
@@ -74,9 +77,9 @@
     <!-- STEP 12 — Add a hint paragraph -->
     <!-- Add a <p> element -->
     <!-- class: "hint" -->
-    <!-- Mention Open homework.js and follow each STEP. Use DevTools → Network to see the request to restcountries.com. -->
-
-        <div class="info-block">
+    <!-- Mention homework.js -->
+      
+    <div class="info-block">
           <h2 id="countryNameDisplay"></h2>
             <p id="countryCapitalDisplay"></p>
             <p id="countryRegionDisplay"></p>
@@ -85,12 +88,12 @@
             <p class="hint">Make sure <code>homework.js</code> is linked and start coding!</p>  
         </div> 
       
-
     <!-- STEP 13 — Link JavaScript -->
     <!-- Add a <script> tag at the bottom of the body -->
     <!-- src="homework.js" -->
-      </section>
+    </section>
      </main>
      <script src="homework.js"></script>
   </body>
 </html>
+
