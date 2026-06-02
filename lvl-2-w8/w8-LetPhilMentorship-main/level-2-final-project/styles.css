@@ -1,9 +1,9 @@
 
 :root {
-    --bg-dark: #0f172a;       /* Deep Navy */
-    --card-bg: #1e293b;       /* Slate Blue */
-    --mint: #10b981;          /* Primary Accent */
-    --mint-glow: #34d399;     /* Hover Accent */
+    --bg-dark: #0f172a;       
+    --card-bg: #1e293b;      
+    --mint: #10b981;         
+    --mint-glow: #34d399;    
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
     --border: #334155;
@@ -145,7 +145,7 @@ input:focus {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 
-/* Specific to Workout Log Grid */
+
 .log-form-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr auto;
@@ -153,7 +153,7 @@ input:focus {
     align-items: flex-end;
 }
 
-/* Table Styling */
+
 .table-wrapper {
     border-radius: 12px;
     overflow: hidden;
