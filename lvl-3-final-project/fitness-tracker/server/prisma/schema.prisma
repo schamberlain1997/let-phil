@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  password  String
+  name      String
+  createdAt DateTime   @default(now())
+  workouts  Workout[]
+  exercises Exercise[]
+}
+
+model Exercise {
+  id               String            @id @default(uuid())
+  name             String
+  category         String?
+  equipment        String?
+  level            String?
+  force            String?
+  mechanic         String?
+  primaryMuscles   String[]
+  secondaryMuscles String[]
+  instructions     String[]
+  images           String[]
+  isCustom         Boolean           @default(false)
+  createdBy        User?             @relation(fields: [createdById], references: [id])
+  createdById      String?
+  workoutEntries   WorkoutExercise[]
+}
+
+model Workout {
+  id          String            @id @default(uuid())
+  name        String
+  notes       String?
+  completedAt DateTime?
+  createdAt   DateTime          @default(now())
+  user        User              @relation(fields: [userId], references: [id])
+  userId      String
+  exercises   WorkoutExercise[]
+}
+
+model WorkoutExercise {
+  id         String   @id @default(uuid())
+  order      Int
+  workout    Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  workoutId  String
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId String
+  sets       Set[]
+}
+
+model Set {
+  id                String          @id @default(uuid())
+  setNumber         Int
+  reps              Int?
+  weight            Float?
+  durationSeconds   Int?
+  notes             String?
+  workoutExercise   WorkoutExercise @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
+  workoutExerciseId String
+}
