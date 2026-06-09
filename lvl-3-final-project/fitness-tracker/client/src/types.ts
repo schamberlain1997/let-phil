@@ -1,14 +1,24 @@
 export interface Exercise {
+  id: string;
   name: string;
-  level: string;
+  category: string | null;
   equipment: string | null;
-  category: string;
+  level: string | null;
   force: string | null;
   mechanic: string | null;
   primaryMuscles: string[];
   secondaryMuscles: string[];
   instructions: string[];
   images: string[];
+  isCustom: boolean;
+  createdById: string | null;
+}
+
+export interface ExercisesResponse {
+  exercises: Exercise[];
+  total: number;
+  page: number;
+  totalPages: number;
 }
 
 

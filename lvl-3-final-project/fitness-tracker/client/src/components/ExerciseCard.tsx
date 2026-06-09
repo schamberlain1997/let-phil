@@ -11,7 +11,14 @@ export default function ExerciseCard({ exercise }: ExerciseCardProps) {
 
   return (
     <div className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 shadow-xl space-y-4">
+      <div className="flex items-center gap-3 flex-wrap">
       <h2 className="text-2xl font-bold text-[#f8fafc]">{exercise.name}</h2>
+       {exercise.isCustom && (
+       <span className="text-xs bg-[#10b981]/20 text-[#10b981] border border-[#10b981]/30 px-2 py-0.5 rounded-full">
+      Custom
+       </span>
+      )}
+      </div>
 
       {/* Meta Grid */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 bg-black/20 p-3 rounded-lg text-sm text-[#94a3b8]">

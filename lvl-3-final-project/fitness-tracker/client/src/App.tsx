@@ -4,11 +4,19 @@ import Exercises from "./pages/Exercises";
 import WorkoutLog from "./pages/WorkoutLog";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CreateExercise from './pages/CreateExercise';
+
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/exercises/create" element={
+         <ProtectedRoute>
+          <Header />
+         <CreateExercise />
+        </ProtectedRoute>
+        } />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={
           <ProtectedRoute>

@@ -1,106 +1,121 @@
-import { useState } from "react";
-import { type Exercise } from "../types";
-import ExerciseCard from "../components/ExerciseCard";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import ExerciseCard from '../components/ExerciseCard';
+import type { Exercise, ExercisesResponse } from '../types';
 
-const MUSCLE_GROUPS = {
-  "Upper Body": ["chest", "lats", "middle back", "lower back", "shoulders", "traps"],
-  "Arms": ["biceps", "triceps", "forearms"],
-  "Lower Body & Core": ["quadriceps", "hamstrings", "glutes", "calves", "abdominals"],
-};
+const CATEGORIES = ['strength', 'cardio', 'stretching', 'plyometrics', 'powerlifting', 'strongman', 'olympic weightlifting'];
 
 export default function Exercises() {
-  const [query, setQuery] = useState("");
   const [exercises, setExercises] = useState<Exercise[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState('');
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const { token } = useAuth();
+  const navigate = useNavigate();
 
-  const fetchExercises = async (searchStr: string, muscleFilter: string) => {
+  useEffect(() => {
+    fetchExercises();
+  }, [search, category, page]);
+
+  async function fetchExercises() {
     setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json"
-      );
-      if (!response.ok) throw new Error("Failed to get exercise database.");
-      
-      const allExercises: Exercise[] = await response.json();
+    const params = new URLSearchParams({
+      page: page.toString(),
+      limit: '20',
+      ...(search && { search }),
+      ...(category && { category }),
+    });
 
-      const filtered = allExercises.filter((item) => {
-        if (muscleFilter) {
-          return item.primaryMuscles && item.primaryMuscles.includes(muscleFilter);
-        }
-        return item.name && item.name.toLowerCase().includes(searchStr.toLowerCase());
-      });
+    const res = await fetch(`http://localhost:3001/api/exercises?${params}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data: ExercisesResponse = await res.json();
+    setExercises(data.exercises);
+    setTotalPages(data.totalPages);
+    setTotal(data.total);
+    setLoading(false);
+  }
 
-      setExercises(filtered);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-    } finally {
-      setLoading(false);
-    }
-  };
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value);
+    setPage(1);
+  }
+
+  function handleCategory(e: React.ChangeEvent<HTMLSelectElement>) {
+    setCategory(e.target.value);
+    setPage(1);
+  }
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-8 space-y-8">
-      <div className="space-y-2">
-        <h3 className="text-3xl font-bold">Find Your Next Exercise</h3>
-        <h3 className="text-lg text-[#94a3b8]">Search by name or use the filters below to target specific muscle groups.</h3>
-      </div>
-
-      {/* Input container */}
-      <div className="flex gap-3 max-w-xl">
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search exercises (e.g. Barbell Row)..."
-          className="flex-1 bg-[#1e293b] border-2 border-[#334155] rounded-lg px-4 py-3 text-[#f8fafc] outline-none focus:border-[#10b981] transition-all"
-        />
+    <div className="max-w-6xl mx-auto px-6 py-8">
+      <div className="flex flex-col md:flex-row gap-4 mb-8 items-start md:items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-white">Exercise Library</h1>
+          <p className="text-[#94a3b8] text-sm mt-1">{total} exercises available</p>
+        </div>
         <button
-          onClick={() => fetchExercises(query, "")}
-          className="bg-[#10b981] text-[#0f172a] font-bold rounded-lg px-6 py-3 uppercase tracking-wider text-sm hover:bg-[#34d399] transition-all transform hover:-translate-y-0.5 shadow-md active:translate-y-0"
+          onClick={() => navigate('/exercises/create')}
+          className="bg-[#10b981] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#059669] transition-colors"
         >
-          Search
+          + Create Exercise
         </button>
       </div>
 
-      {/* Filters Group */}
-      <div className="bg-[#1e293b]/50 p-6 rounded-xl border border-[#334155] space-y-4">
-        {Object.entries(MUSCLE_GROUPS).map(([category, muscles]) => (
-          <div key={category} className="space-y-2">
-            <h4 className="text-sm font-semibold tracking-wide uppercase text-[#94a3b8]">{category}</h4>
-            <div className="flex flex-wrap gap-2">
-              {muscles.map((muscle) => (
-                <button
-                  key={muscle}
-                  onClick={() => {
-                    setQuery("");
-                    fetchExercises("", muscle);
-                  }}
-                  className="bg-[#1e293b] text-[#34d399] border-2 border-[#34d399] hover:bg-[#34d399] hover:text-[#0f172a] px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200"
-                >
-                  {muscle}
-                </button>
-              ))}
-            </div>
-          </div>
-        ))}
+      <div className="flex flex-col md:flex-row gap-3 mb-6">
+        <input
+          type="text"
+          placeholder="Search exercises..."
+          value={search}
+          onChange={handleSearch}
+          className="flex-1 bg-[#1e293b] border border-[#334155] rounded-lg px-4 py-2.5 text-sm text-white placeholder-[#94a3b8] focus:outline-none focus:border-[#10b981]"
+        />
+        <select
+          value={category}
+          onChange={handleCategory}
+          className="bg-[#1e293b] border border-[#334155] rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#10b981]"
+        >
+          <option value="">All categories</option>
+          {CATEGORIES.map(c => (
+            <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+          ))}
+        </select>
       </div>
 
-      {/* Active Area Output */}
-      <div className="space-y-6">
-        {loading && <p className="text-center text-[#94a3b8]">Loading exercise data...</p>}
-        {error && <p className="text-center text-red-500">{error}</p>}
-        {!loading && !error && exercises.length === 0 && (
-          <p className="text-center text-[#94a3b8]">No exercises loaded. Search or pick a muscle group above!</p>
-        )}
-        
-        <div className="grid gap-6">
-          {exercises.map((exercise, index) => (
-            <ExerciseCard key={index} exercise={exercise} />
+      {loading ? (
+        <div className="text-center py-20 text-[#94a3b8]">Loading exercises...</div>
+      ) : exercises.length === 0 ? (
+        <div className="text-center py-20 text-[#94a3b8]">No exercises found.</div>
+      ) : (
+        <div className="space-y-4">
+          {exercises.map(exercise => (
+            <ExerciseCard key={exercise.id} exercise={exercise} />
           ))}
         </div>
-      </div>
-    </main>
+      )}
+
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center gap-3 mt-8">
+          <button
+            onClick={() => setPage(p => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="px-4 py-2 rounded-lg border border-[#334155] text-sm text-[#94a3b8] disabled:opacity-40 hover:border-[#10b981] hover:text-[#10b981] transition-colors"
+          >
+            Previous
+          </button>
+          <span className="text-sm text-[#94a3b8]">Page {page} of {totalPages}</span>
+          <button
+            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className="px-4 py-2 rounded-lg border border-[#334155] text-sm text-[#94a3b8] disabled:opacity-40 hover:border-[#10b981] hover:text-[#10b981] transition-colors"
+          >
+            Next
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
