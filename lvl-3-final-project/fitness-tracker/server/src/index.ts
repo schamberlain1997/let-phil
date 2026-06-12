@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth';
 import exerciseRoutes from './routes/exercises';
+import workoutRoutes from './routes/workouts';
 
 dotenv.config();
 
@@ -12,5 +13,6 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api', exerciseRoutes);
+app.use('/api', workoutRoutes);
 
 app.listen(3001, () => console.log('Server running on port 3001'));

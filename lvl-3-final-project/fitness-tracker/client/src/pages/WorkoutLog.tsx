@@ -1,233 +1,114 @@
-import { useState, useEffect } from "react";
-import { type WorkoutLog as WorkoutLogType } from "../types";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import type { Workout } from '../types';
 
 export default function WorkoutLog() {
-  // --- Workout Log State ---
-  const [workouts, setWorkouts] = useState<WorkoutLogType[]>(() => {
-    const saved = localStorage.getItem("workouts");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [workouts, setWorkouts] = useState<Workout[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const { token } = useAuth();
+  const navigate = useNavigate();
 
-  const [exercise, setExercise] = useState("");
-  const [weight, setWeight] = useState("");
-  const [reps, setReps] = useState("");
-  const [sets, setSets] = useState("");
-
-  // --- Contact Form State ---
-  const [contactName, setContactName] = useState("");
-  const [contactEmail, setContactEmail] = useState("");
-  const [contactMessage, setContactMessage] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // Sync workouts to LocalStorage whenever state updates
   useEffect(() => {
-    localStorage.setItem("workouts", JSON.stringify(workouts));
-  }, [workouts]);
+    fetch('http://localhost:3001/api/workouts', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then(r => r.json())
+      .then(data => { setWorkouts(data); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, []);
 
-  // Handle adding a new log line item
-  const handleAddWorkout = (e: React.FormEvent) => {
-    e.preventDefault();
+  function totalSets(workout: Workout) {
+    return workout.exercises.reduce((sum, ex) => sum + ex.sets.length, 0);
+  }
 
-    if (!exercise.trim()) {
-      alert("Please enter an exercise name!");
-      return;
-    }
-
-    const newWorkout: WorkoutLogType = {
-      id: Date.now(),
-      date: new Date().toLocaleDateString(),
-      exercise: exercise.trim(),
-      weight: weight || "0",
-      reps: reps || "0",
-      sets: sets || "0",
-    };
-
-    setWorkouts((prev) => [...prev, newWorkout]);
-
-    // Clear inputs
-    setExercise("");
-    setWeight("");
-    setReps("");
-    setSets("");
-  };
-
-  // Handle removing a single row item
-  const handleDeleteWorkout = (id: number) => {
-    setWorkouts((prev) => prev.filter((w) => w.id !== id));
-  };
-
-  // Handle clearing out everything
-  const handleClearAll = () => {
-    if (workouts.length === 0) return;
-    if (confirm("Are you sure you want to delete all entries? This cannot be undone.")) {
-      setWorkouts([]);
-    }
-  };
-
-  // Handle support message submissions
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const contactData = {
-      name: contactName,
-      email: contactEmail,
-      message: contactMessage,
-      timestamp: new Date().toLocaleString(),
-    };
-
-    const existingMessages = JSON.parse(localStorage.getItem("contactMessages") || "[]");
-    existingMessages.push(contactData);
-    localStorage.setItem("contactMessages", JSON.stringify(existingMessages));
-
-    setIsSubmitted(true);
-
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setContactName("");
-      setContactEmail("");
-      setContactMessage("");
-    }, 2000);
-  };
+  function formatDate(dateStr: string) {
+    return new Date(dateStr).toLocaleDateString('en-US', {
+      weekday: 'short', month: 'short', day: 'numeric',
+    });
+  }
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-8 space-y-10">
-      {/* 1. Add Workout Box */}
-      <div className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 shadow-xl space-y-4">
-        <h2 className="text-2xl font-bold">Add Workout</h2>
-        <form onSubmit={handleAddWorkout} className="grid grid-cols-1 md:grid-cols-5 gap-4 items-end w-full">
-          <input
-            type="text"
-            placeholder="Exercise"
-            value={exercise}
-            onChange={(e) => setExercise(e.target.value)}
-            className="w-full bg-[#1e293b] border-2 border-[#334155] rounded-lg px-4 py-2.5 text-[#f8fafc] outline-none focus:border-[#10b981] transition-all"
-          />
-          <input
-            type="number"
-            placeholder="Weight (kg)"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            className="w-full bg-[#1e293b] border-2 border-[#334155] rounded-lg px-4 py-2.5 text-[#f8fafc] outline-none focus:border-[#10b981] transition-all"
-          />
-          <input
-            type="number"
-            placeholder="Reps"
-            value={reps}
-            onChange={(e) => setReps(e.target.value)}
-            className="w-full bg-[#1e293b] border-2 border-[#334155] rounded-lg px-4 py-2.5 text-[#f8fafc] outline-none focus:border-[#10b981] transition-all"
-          />
-          <input
-            type="number"
-            placeholder="Sets"
-            value={sets}
-            onChange={(e) => setSets(e.target.value)}
-            className="w-full bg-[#1e293b] border-2 border-[#334155] rounded-lg px-4 py-2.5 text-[#f8fafc] outline-none focus:border-[#10b981] transition-all"
-          />
-          <button
-            type="submit"
-            className="w-full bg-[#10b981] text-[#0f172a] font-bold rounded-lg py-3 uppercase tracking-wider text-sm hover:bg-[#34d399] transition-all transform hover:-translate-y-0.5 shadow-md active:translate-y-0 cursor-pointer"
-          >
-            Add
-          </button>
-        </form>
-      </div>
-
-      {/* 2. Logs Data Table Container */}
-      <div className="space-y-4">
-        <div className="w-full border border-[#334155] rounded-xl overflow-hidden shadow-xl bg-[#1e293b]">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="bg-black/20 text-[#10b981] text-xs uppercase tracking-wider font-bold">
-                <th className="p-4 text-left whitespace-nowrap">Date</th>
-                <th className="p-4 text-left whitespace-nowrap">Exercise</th>
-                <th className="p-4 text-left whitespace-nowrap">Weight</th>
-                <th className="p-4 text-left whitespace-nowrap">Reps</th>
-                <th className="p-4 text-left whitespace-nowrap">Sets</th>
-                <th className="p-4 text-left whitespace-nowrap">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {workouts.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="text-center p-8 text-[#94a3b8] tracking-wide">
-                    No workouts logged yet. Time to hit the gym!
-                  </td>
-                </tr>
-              ) : (
-                workouts.map((w) => (
-                  <tr key={w.id} className="hover:bg-white/[0.02] border-b border-[#334155] last:border-0 text-[#94a3b8] transition-colors">
-                    <td className="p-4 text-sm whitespace-nowrap">{w.date}</td>
-                    <td className="p-4 text-sm text-[#f8fafc] font-semibold">{w.exercise}</td>
-                    <td className="p-4 text-sm whitespace-nowrap">{w.weight} kg</td>
-                    <td className="p-4 text-sm">{w.reps}</td>
-                    <td className="p-4 text-sm">{w.sets}</td>
-                    <td className="p-4 text-sm">
-                      <button
-                        onClick={() => handleDeleteWorkout(w.id)}
-                        className="text-[#ef4444] border border-[#ef4444] hover:bg-[#ef4444] hover:text-white px-3 py-1 rounded-md transition-colors text-xs font-semibold cursor-pointer"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+    <div className="max-w-2xl mx-auto px-6 py-8">
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-2xl font-bold text-white">Workout Log</h1>
+          <p className="text-[#94a3b8] text-sm mt-1">{workouts.length} sessions logged</p>
         </div>
-
-        {/* Clear Button */}
-        {workouts.length > 0 && (
-          <div className="text-right">
-            <button
-              onClick={handleClearAll}
-              className="text-[#ef4444] border border-[#ef4444] hover:bg-[#ef4444] hover:text-white px-5 py-2.5 rounded-md transition-colors text-sm font-semibold shadow-md cursor-pointer"
-            >
-              Clear All Logs
-            </button>
-          </div>
-        )}
+        <button onClick={() => navigate('/workout')}
+          className="bg-[#10b981] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#059669] transition-colors">
+          + Start Workout
+        </button>
       </div>
 
-      {/* 3. Contact Form Block */}
-      <div className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 shadow-xl max-w-xl space-y-4 mx-auto md:mx-0">
-        <h2 className="text-2xl font-bold">Contact Us</h2>
-        <form onSubmit={handleContactSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder="Your Name"
-            required
-            value={contactName}
-            onChange={(e) => setContactName(e.target.value)}
-            className="bg-[#1e293b] border-2 border-[#334155] rounded-lg px-4 py-2.5 text-[#f8fafc] outline-none focus:border-[#10b981] transition-all"
-          />
-          <input
-            type="email"
-            placeholder="Your Email"
-            required
-            value={contactEmail}
-            onChange={(e) => setContactEmail(e.target.value)}
-            className="bg-[#1e293b] border-2 border-[#334155] rounded-lg px-4 py-2.5 text-[#f8fafc] outline-none focus:border-[#10b981] transition-all"
-          />
-          <textarea
-            placeholder="How can we help you?"
-            rows={4}
-            required
-            value={contactMessage}
-            onChange={(e) => setContactMessage(e.target.value)}
-            className="bg-[#2a3447] border border-[#3d4b63] rounded-lg p-3 text-[#f8fafc] outline-none focus:border-[#10b981] transition-all"
-          />
-          <button
-            type="submit"
-            style={isSubmitted ? { backgroundColor: "#27ae60" } : undefined}
-            className={`w-fit px-8 py-2.5 rounded-lg font-bold uppercase tracking-wider text-sm transition-all transform hover:-translate-y-0.5 shadow-md active:translate-y-0 cursor-pointer ${
-              isSubmitted ? "text-white" : "bg-[#10b981] text-[#0f172a] hover:bg-[#34d399]"
-            }`}
-          >
-            {isSubmitted ? "Message Saved!" : "Send Message"}
+      {loading ? (
+        <p className="text-[#94a3b8] text-center py-12">Loading...</p>
+      ) : workouts.length === 0 ? (
+        <div className="text-center py-16 border border-dashed border-[#334155] rounded-xl">
+          <p className="text-[#94a3b8] mb-4">No workouts logged yet</p>
+          <button onClick={() => navigate('/workout')}
+            className="text-[#10b981] text-sm hover:underline">
+            Start your first workout →
           </button>
-        </form>
-      </div>
-    </main>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {workouts.map(workout => (
+            <div key={workout.id} className="bg-[#1e293b] border border-[#334155] rounded-xl overflow-hidden">
+              <button
+                className="w-full text-left px-5 py-4 flex justify-between items-center hover:bg-white/5 transition-colors"
+                onClick={() => setExpanded(expanded === workout.id ? null : workout.id)}
+              >
+                <div>
+                  <p className="text-white font-medium">{workout.name}</p>
+                  <p className="text-[#94a3b8] text-xs mt-0.5">
+                    {formatDate(workout.createdAt)} · {workout.exercises.length} exercises · {totalSets(workout)} sets
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  {workout.completedAt && (
+                    <span className="text-xs text-[#10b981] bg-[#10b981]/10 border border-[#10b981]/20 px-2 py-0.5 rounded-full">
+                      Done
+                    </span>
+                  )}
+                  <span className="text-[#94a3b8] text-sm">{expanded === workout.id ? '▲' : '▼'}</span>
+                </div>
+              </button>
+
+              {expanded === workout.id && (
+                <div className="px-5 pb-4 border-t border-[#334155]">
+                  {workout.exercises.length === 0 ? (
+                    <p className="text-[#64748b] text-sm py-3">No exercises logged</p>
+                  ) : (
+                    workout.exercises.map(entry => (
+                      <div key={entry.id} className="pt-3">
+                        <p className="text-white text-sm font-medium mb-2">{entry.exercise.name}</p>
+                        {entry.sets.length > 0 ? (
+                          <div className="space-y-1">
+                            <div className="grid grid-cols-3 text-xs text-[#64748b] px-1 mb-1">
+                              <span>Set</span><span>Reps</span><span>Weight</span>
+                            </div>
+                            {entry.sets.map(set => (
+                              <div key={set.id} className="grid grid-cols-3 text-sm text-[#94a3b8] bg-black/20 rounded px-1 py-1.5">
+                                <span className="text-white">{set.setNumber}</span>
+                                <span>{set.reps ?? '—'}</span>
+                                <span>{set.weight ? `${set.weight} kg` : '—'}</span>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-[#64748b] text-xs">No sets logged</p>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

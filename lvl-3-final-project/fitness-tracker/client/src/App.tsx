@@ -5,6 +5,7 @@ import WorkoutLog from "./pages/WorkoutLog";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateExercise from './pages/CreateExercise';
+import ActiveWorkout from './pages/ActiveWorkout'
 
 
 export default function App() {
@@ -30,6 +31,12 @@ export default function App() {
             <WorkoutLog />
           </ProtectedRoute>
         } />
+        <Route path="/workout" element={
+         <ProtectedRoute>
+         <Header />
+         <ActiveWorkout />
+        </ProtectedRoute>
+      } />
       </Routes>
     </BrowserRouter>
   );

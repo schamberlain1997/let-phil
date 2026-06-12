@@ -37,3 +37,32 @@ export interface ContactMessage {
   message: string;
   timestamp: string;
 }
+
+export interface WorkoutSet {
+  id: string;
+  setNumber: number;
+  reps: number | null;
+  weight: number | null;
+}
+
+export interface WorkoutExerciseEntry {
+  id: string;
+  exerciseId: string;
+  order: number;
+  exercise: {
+    name: string;
+    equipment: string | null;
+    category: string | null;
+    primaryMuscles: string[];
+  };
+  sets: WorkoutSet[];
+}
+
+export interface Workout {
+  id: string;
+  name: string;
+  notes: string | null;
+  createdAt: string;
+  completedAt: string | null;
+  exercises: WorkoutExerciseEntry[];
+}

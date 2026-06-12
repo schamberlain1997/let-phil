@@ -8,20 +8,30 @@ export default function Header() {
           Fitness<span className="text-[#10b981]">Tracker</span>
         </div>
         <ul className="flex gap-6">
-          <li>
-            <NavLink 
-              to="/" 
-              className={({ isActive }) => 
+           <li>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
                 `font-semibold transition-colors duration-300 ${isActive ? "text-[#10b981] border-b-2 border-[#10b981] pb-1" : "text-[#94a3b8] hover:text-[#10b981]"}`
-              }
+            }
             >
               Exercises
             </NavLink>
           </li>
           <li>
-            <NavLink 
-              to="/workout-log" 
-              className={({ isActive }) => 
+            <NavLink
+              to="/workout"
+              className={({ isActive }) =>
+                `font-semibold transition-colors duration-300 ${isActive ? "text-[#10b981] border-b-2 border-[#10b981] pb-1" : "text-[#94a3b8] hover:text-[#10b981]"}`
+             }
+            >
+              Workout
+            </NavLink>
+         </li>
+          <li>
+            <NavLink
+             to="/workout-log"
+              className={({ isActive }) =>
                 `font-semibold transition-colors duration-300 ${isActive ? "text-[#10b981] border-b-2 border-[#10b981] pb-1" : "text-[#94a3b8] hover:text-[#10b981]"}`
               }
             >
