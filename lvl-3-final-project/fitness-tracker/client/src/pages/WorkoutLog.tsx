@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import type { Workout } from '../types';
+import { API_BASE } from '../lib/api';
+
 
 export default function WorkoutLog() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
@@ -11,7 +13,7 @@ export default function WorkoutLog() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/workouts', {
+    fetch(`${API_BASE}/api/workouts`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(r => r.json())

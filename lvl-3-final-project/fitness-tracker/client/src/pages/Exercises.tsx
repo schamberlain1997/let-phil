@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import ExerciseCard from '../components/ExerciseCard';
 import type { Exercise, ExercisesResponse } from '../types';
+import { API_BASE } from '../lib/api';
 
 const CATEGORIES = ['strength', 'cardio', 'stretching', 'plyometrics', 'powerlifting', 'strongman', 'olympic weightlifting'];
 
@@ -30,7 +31,7 @@ export default function Exercises() {
       ...(category && { category }),
     });
 
-    const res = await fetch(`http://localhost:3001/api/exercises?${params}`, {
+    const res = await fetch(`${API_BASE}/api/exercises?${params}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data: ExercisesResponse = await res.json();

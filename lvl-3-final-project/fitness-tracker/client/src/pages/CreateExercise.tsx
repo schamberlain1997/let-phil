@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { API_BASE } from '../lib/api';
 
 export default function CreateExercise() {
   const [name, setName] = useState('');
@@ -21,7 +22,7 @@ export default function CreateExercise() {
     setSaving(true);
 
     try {
-      const res = await fetch('http://localhost:3001/api/exercises', {
+      const res = await fetch(`${API_BASE}/api/exercises`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

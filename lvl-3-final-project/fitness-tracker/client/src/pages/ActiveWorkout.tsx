@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import RestTimer from '../components/RestTimer';
 import type { Workout, WorkoutExerciseEntry, Exercise } from '../types';
+import { API_BASE } from '../lib/api';
 
 export default function ActiveWorkout() {
   const [workout, setWorkout] = useState<Workout | null>(null);
@@ -15,7 +16,7 @@ export default function ActiveWorkout() {
   const [saving, setSaving] = useState(false);
   const { token } = useAuth();
   const navigate = useNavigate();
-  const API = 'http://localhost:3001/api';
+  const API = `${API_BASE}/api`;
 
   useEffect(() => {
     if (pickerSearch.length < 2) { setPickerResults([]); return; }
